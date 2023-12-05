@@ -1,7 +1,7 @@
 {
-    "name": "svc-products",
+    "name": "svc-user",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/svc-products/src",
+    "sourceRoot": "apps/svc-user/src",
     "projectType": "application",
     "targets": {
         "build": {
@@ -11,31 +11,33 @@
             "options": {
                 "target": "node",
                 "compiler": "tsc",
-                "outputPath": "dist/apps/svc-products",
-                "main": "apps/svc-products/src/main.ts",
-                "tsConfig": "apps/svc-products/tsconfig.app.json",
-                "assets": ["apps/svc-products/src/assets"],
+                "outputPath": "dist/apps/svc-user",
+                "main": "apps/svc-user/src/main.ts",
+                "tsConfig": "apps/svc-user/tsconfig.app.json",
+                "assets": ["apps/svc-user/src/assets"],
                 "isolatedConfig": true,
                 "generatePackageJson": true,
-                "webpackConfig": "apps/svc-products/webpack.config.js"
+                "webpackConfig": "apps/svc-user/webpack.config.js"
             },
             "configurations": {
                 "development": {},
-                "production": {}
+                "production": {
+                    "generateLockfile": true
+                }
             }
         },
         "serve": {
             "executor": "@nx/js:node",
             "defaultConfiguration": "development",
             "options": {
-                "buildTarget": "svc-products:build"
+                "buildTarget": "svc-user:build"
             },
             "configurations": {
                 "development": {
-                    "buildTarget": "svc-products:build:development"
+                    "buildTarget": "svc-user:build:development"
                 },
                 "production": {
-                    "buildTarget": "svc-products:build:production"
+                    "buildTarget": "svc-user:build:production"
                 }
             }
         },
@@ -43,19 +45,19 @@
             "executor": "@nx/eslint:lint",
             "outputs": ["{options.outputFile}"],
             "options": {
-                "lintFilePatterns": ["apps/svc-products/**/*.ts"]
+                "lintFilePatterns": ["apps/svc-user/**/*.ts"]
             }
         },
         "test": {
             "executor": "@nx/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
             "options": {
-                "jestConfig": "apps/svc-products/jest.config.ts"
+                "jestConfig": "apps/svc-user/jest.config.ts"
             }
         },
         "docker-build": {
             "dependsOn": ["build"],
-            "command": "docker build -f apps/svc-products/Dockerfile . -t svc-products"
+            "command": "docker build -f apps/svc-user/Dockerfile . -t svc-user"
         }
     },
     "tags": []
